@@ -1,0 +1,52 @@
+# ---- Node.js ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ---- TypeScript ----
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# ---- Env & Config ----
+.env
+.env.local
+.env.*.local
+
+# ---- Logs ----
+logs/
+*.log
+*.log.*
+lerna-debug.log
+
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+
+# ---- Coverage / Test ----
+coverage/
+.nyc_output/
+jest-html-reporters-*.html
+
+# ---- Misc ----
+*.tgz
+*.bak
+*.tmp

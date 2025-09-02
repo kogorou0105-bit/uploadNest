@@ -7,6 +7,8 @@ import { asyncHandler } from './middlewares/asyncHandler.middleware';
 import { HTTPSTATUS } from './config/http.config';
 import { NextFunction, Request, Response } from 'express';
 import { errorHandler } from './middlewares/errorHandler.middleware';
+import { logger } from './utils/logger';
+import { connectDatabase, disconnectDatabase } from './config/database.config';
 const app = express();
 
 const allowedOrigins = Env.ALLOWED_ORIGINS?.split(',');
@@ -42,9 +44,9 @@ app.use(errorHandler);
 
 async function startServer() {
   try {
-    // await connectDatabase();
+    await connectDatabase();
     const server = app.listen(Env.PORT, () => {
-      console.info(
+      logger.info(
         `Server listening on port ${Env.PORT} in ${Env.NODE_ENV} mode`,
       );
     });
@@ -53,26 +55,26 @@ async function startServer() {
 
     shutdownSignals.forEach((signal) => {
       process.on(signal, async () => {
-        console.warn(`${signal} recieved: shutting down gracefully`);
+        logger.warn(`${signal} recieved: shutting down gracefully`);
 
         try {
           server.close(() => {
-            console.warn('HTTP server closed');
+            logger.warn('HTTP server closed');
           });
           //disconnect db
-          // await disconnectDatabase();
+          await disconnectDatabase();
 
           // await logTail.flush();
 
           process.exit(0);
         } catch (error) {
-          console.error(`Error occured during shutting down`, error);
+          logger.error(`Error occured during shutting down`, error);
           process.exit(1);
         }
       });
     });
   } catch (error) {
-    console.error(`Failed to start server`, error);
+    logger.error(`Failed to start server`, error);
     process.exit(1);
   }
 }

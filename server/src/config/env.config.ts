@@ -1,11 +1,12 @@
 import { getEnv } from '../utils/get-env';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const envConfig = () => ({
   NODE_ENV: getEnv('NODE_ENV', 'development'),
   PORT: getEnv('PORT', '3000'),
 
   BASE_PATH: getEnv('BASE_PATH', '/api'),
-  MONGO_URI: getEnv('MONGO_URI', ''),
+  MONGO_URL: getEnv('MONGO_URL', ''),
 
   JWT_SECRET: getEnv('JWT_SECRET', 'secert_jwt'),
   JWT_EXPIRES_IN: getEnv('JWT_EXPIRES_IN', '1d'),
